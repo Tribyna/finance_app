@@ -1,0 +1,31 @@
+# Установка проекта "Финансы"
+
+## 1. Установи Python
+- Скачай с [python.org](https://www.python.org/downloads/)
+- **ВАЖНО:** при установке поставь галочку "Add Python to PATH"
+
+## 2. Установи Git
+- Скачай с [git-scm.com](https://git-scm.com/downloads/win)
+- При установке выбери "Git from command line"
+
+потом Ctrl + `(Ё) откроится терминал, туда 
+
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+
+Это включает виртуализацию
+
+Если ошибка доступа команда ниже, и повтори:
+
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+
+Затем установка библеотек:
+
+pip install -r requirements.txt
+
+=====================
+Запуск кода:
+
+В терменали с вертуализацией(.\venv\Scripts\Activate.ps1) прописать python main.py
+
+
