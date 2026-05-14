@@ -37,9 +37,9 @@ class DatabaseManager:
         self.connection.commit()
     
     def create_user(self, username, password):
-        """Создаёт нового пользователя. Возвращает True, если успешно"""
+        """Создаёт нового пользователя. Возвращает True/False"""
         # Хешируем пароль
-        password_hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode()
+        password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
         
         try:
             self.cursor.execute(
@@ -49,7 +49,6 @@ class DatabaseManager:
             self.connection.commit()
             return True
         except sqlite3.IntegrityError:
-            # Пользователь с таким именем уже есть
             return False
     
     def get_user(self, username):
