@@ -71,7 +71,7 @@ class HistoryWindow(ctk.CTkToplevel):
             return
         
         for i, t in enumerate(transactions):
-            _, _, amount, category, date, desc = t
+            _, _, amount, category, date, desc, created_at = t
             
             type_str = "Доход" if amount > 0 else "Расход"
             amount_str = f"{amount:,.2f} ₽"
