@@ -260,7 +260,7 @@ class MainWindow:
     
     def logout(self):
         from gui.auth_window import AuthWindow
-        ctk.set_appearance_mode("dark")   # 👈 возвращаем тёмную тему
+        ctk.set_appearance_mode("dark") 
         AuthWindow(self.parent, self.db, self.on_login_success)
     
     def on_login_success(self, user_id, username):
