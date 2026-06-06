@@ -31,25 +31,20 @@ class AuthService:
         if not user:
             return (None, None, "Неверное имя или пароль")
         
-        # Распаковываем данные пользователя
-        # get_user возвращает (id, username, password_hash, email, is_blocked)
+
         user_id = user[0]
         user_name = user[1]
         hashed = user[2]
         email = user[3]
         is_blocked = user[4] if len(user) > 4 else 0
         
-        # Проверяем бессрочную блокировку
         if is_blocked:
             return (None, None, "Аккаунт заблокирован!\nПроверьте почту для разблокировки.")
         
-        # Проверяем пароль
         if AuthService.verify_password(password, hashed):
-            # Успешный вход — очищаем попытки
             db.clear_failed_attempts(user_id)
             return (user_id, user_name, "OK")
         
-        # Неудачная попытка — записываем
         db.add_failed_attempt(user_id)
         failed_count = db.get_failed_attempts_count(user_id)
         

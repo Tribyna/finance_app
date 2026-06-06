@@ -6,8 +6,8 @@ import secrets
 class EmailService:
     SMTP_SERVER = "smtp.mail.ru"
     SMTP_PORT = 587
-    SENDER_EMAIL = "finance_app@mail.ru"        # твой логин
-    SENDER_PASSWORD = "AamYZZBv41UN6KrM5E5I"   # пароль приложения
+    SENDER_EMAIL = "finance_app@mail.ru"  
+    SENDER_PASSWORD = "AamYZZBv41UN6KrM5E5I" 
 
     @staticmethod
     def generate_unblock_token():

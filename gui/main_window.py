@@ -10,19 +10,15 @@ class MainWindow:
         self.user_id = user_id
         self.username = username
         
-        # Очищаем родительское окно
         for widget in parent.winfo_children():
             widget.destroy()
         
-        # Настройки окна
         parent.title(f"Финансы - {username}")
         parent.geometry("900x650")
         
-        # Настройка цветовой схемы (как калькулятор Windows)
         ctk.set_appearance_mode("light")
         ctk.set_default_color_theme("blue")
         
-        # Боковая панель (светло-серая)
         self.sidebar = ctk.CTkFrame(
             parent, 
             width=220, 
@@ -31,14 +27,12 @@ class MainWindow:
         )
         self.sidebar.pack(side="left", fill="y")
         
-        # Контентная область (белая)
         self.content = ctk.CTkFrame(
             parent, 
             fg_color="#ffffff"
         )
         self.content.pack(side="right", fill="both", expand=True)
         
-        # Заголовок на боковой панели
         welcome = ctk.CTkLabel(
             self.sidebar, 
             text=f"👋 Здравствуйте,\n{username}!", 
@@ -47,11 +41,9 @@ class MainWindow:
         )
         welcome.pack(pady=30)
         
-        # Разделитель
         separator = ctk.CTkFrame(self.sidebar, height=2, fg_color="#d0d0d0")
         separator.pack(pady=10, padx=20, fill="x")
         
-        # Кнопки меню (по центру)
         button_frame = ctk.CTkFrame(self.sidebar, fg_color="#f0f0f0")
         button_frame.pack(expand=True)
         
@@ -94,7 +86,6 @@ class MainWindow:
         )
         self.history_btn.pack(pady=10)
         
-        # Разделитель
         separator2 = ctk.CTkFrame(self.sidebar, height=2, fg_color="#d0d0d0")
         separator2.pack(pady=10, padx=20, fill="x")
         
@@ -111,24 +102,19 @@ class MainWindow:
         )
         self.logout_btn.pack(pady=10)
         
-        # Показываем дашборд
         self.show_dashboard()
     
     def show_dashboard(self):
-        # Очищаем контент
         for widget in self.content.winfo_children():
             widget.destroy()
         
-        # Получаем данные
         balance = FinanceService.get_balance(self.db, self.user_id)
         income_total = FinanceService.get_income_total(self.db, self.user_id)
         expense_total = FinanceService.get_expense_total(self.db, self.user_id)
         
-        # Главный фрейм для центрирования
         main_frame = ctk.CTkFrame(self.content, fg_color="#ffffff")
         main_frame.pack(expand=True)
         
-        # Заголовок
         title = ctk.CTkLabel(
             main_frame, 
             text="Финансовый дашборд", 
@@ -137,7 +123,6 @@ class MainWindow:
         )
         title.pack(pady=(0, 30))
         
-        # Карточка баланса (центрированная)
         balance_frame = ctk.CTkFrame(
             main_frame, 
             fg_color="#f8f9fa",
@@ -162,17 +147,14 @@ class MainWindow:
         )
         balance_amount.pack(pady=(0, 15))
         
-        # Цвет баланса
         if balance >= 0:
             balance_amount.configure(text_color="#2ecc71")
         else:
             balance_amount.configure(text_color="#e74c3c")
-        
-        # Статистика (доходы и расходы в ряд)
+
         stats_frame = ctk.CTkFrame(main_frame, fg_color="#ffffff")
         stats_frame.pack(pady=20)
         
-        # Доходы (слева)
         income_frame = ctk.CTkFrame(
             stats_frame, 
             fg_color="#f8f9fa",
@@ -209,7 +191,6 @@ class MainWindow:
         )
         income_amount.pack(pady=(0, 15))
         
-        # Расходы (справа)
         expense_frame = ctk.CTkFrame(
             stats_frame, 
             fg_color="#f8f9fa",

@@ -10,7 +10,6 @@ class AddTransactionWindow(ctk.CTkToplevel):
         self.trans_type = trans_type
         self.refresh_callback = refresh_callback
         
-        # Делаем окно поверх родительского
         self.transient(parent)
         self.grab_set()
         self.focus_force()
@@ -19,37 +18,30 @@ class AddTransactionWindow(ctk.CTkToplevel):
         self.title(title)
         self.geometry("400x500")
         
-        # Центрируем относительно родителя
         self.update_idletasks()
         x = parent.winfo_x() + (parent.winfo_width() // 2) - (self.winfo_width() // 2)
         y = parent.winfo_y() + (parent.winfo_height() // 2) - (self.winfo_height() // 2)
         self.geometry(f"+{x}+{y}")
         
-        # Категории
         income_categories = ["Зарплата", "Фриланс", "Подарок", "Возврат долга", "Другое"]
         expense_categories = ["Еда", "Транспорт", "Жильё", "Развлечения", "Здоровье", "Другое"]
         
         self.categories = income_categories if trans_type == "income" else expense_categories
         
-        # Сумма
         self.amount_entry = ctk.CTkEntry(self, placeholder_text="Сумма", width=250)
         self.amount_entry.pack(pady=10)
         
-        # Категория
         self.category_combo = ctk.CTkComboBox(self, values=self.categories, width=250)
         self.category_combo.pack(pady=10)
         self.category_combo.set("Выберите категорию")
         
-        # Дата
         today = datetime.now().strftime("%Y-%m-%d")
         self.date_entry = ctk.CTkEntry(self, placeholder_text=f"Дата (YYYY-MM-DD) | {today}", width=250)
         self.date_entry.pack(pady=10)
         
-        # Описание
         self.desc_entry = ctk.CTkEntry(self, placeholder_text="Описание (необязательно)", width=250)
         self.desc_entry.pack(pady=10)
         
-        # Кнопка
         btn_text = "➕ Добавить доход" if trans_type == "income" else "➖ Добавить расход"
         btn_color = "green" if trans_type == "income" else "orange"
         
@@ -62,7 +54,6 @@ class AddTransactionWindow(ctk.CTkToplevel):
         )
         self.save_btn.pack(pady=20)
         
-        # Метка для ошибок
         self.error_label = ctk.CTkLabel(self, text="", text_color="red")
         self.error_label.pack(pady=5)
     
